@@ -4,56 +4,125 @@
  * SPDX-License-Identifier: LicenseRef-Nordic-4-Clause
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { logger } from '@nordicsemiconductor/pc-nrfconnect-shared';
+import path from 'path';
 
-// TODO: Pass the path to qr code image, as a part of some pairingConfig structure depending on the selected sample.
-import qrCodeImg from '../../../resources/devices/images/lock_factory_data.png';
-// TODO: Make these images part of the ecosystem data structure and replace with ecosystem specific images
-import phoneImg from '../../../resources/phone.png';
 import { useAppSelector } from '../../app/store';
 import { getChoiceUnsafely } from '../../features/device/deviceSlice';
+import { getSelectedEcosystem } from '../../features/flows/ecosystemConfig';
+import { getSelectedPairingConfig } from '../../features/flows/pairingConfig';
 import { Back } from '../Back';
+import Link from '../Link';
 import Main from '../Main';
 import { Next } from '../Next';
-import { getSelectedEcosystem } from './SelectEcosystem';
+import { SetupPayload } from '../SetupPayload';
+import { tempFileManager } from '../TempFileManager';
 
-// interface PairingStepProps {
-//     name: string;
-//     qrCodeImage: string;
-// }
+import '../../app/App.scss';
 
 const PairingStep = () => {
     const ecosystem = getSelectedEcosystem();
     const previouslySelectedChoice = useAppSelector(getChoiceUnsafely);
+    const [qrCodePath, setQrCodePath] = useState<string>('');
+    const [manualCode, setManualCode] = useState<string>('');
 
-    // TODO: For now pairingProps are not used, but they should be used to get qrCodeImg path instead of hardcoded one.
+    const generateQRCode = async (factoryData: string): Promise<string> => {
+        try {
+            logger.info(`Generating QR code for ${factoryData}`);
+            const payload = await SetupPayload.fromCBORHex(factoryData);
+            payload.generateQRCode();
+
+            logger.info(payload.prettyPrint());
+
+            return await payload.GenerateQRCodeImage(
+                tempFileManager.createTempFilePath()
+            );
+        } catch (error) {
+            logger.error(error);
+            return '';
+        }
+    };
+
+    const generateManualCode = async (factoryData: string): Promise<void> => {
+        try {
+            logger.info(`Generating pairing pin code for ${factoryData}`);
+            const payload = await SetupPayload.fromCBORHex(factoryData);
+            setManualCode(payload.generateManualCode());
+        } catch (error) {
+            logger.error(error);
+        }
+    };
+
+    useEffect(() => {
+        const factoryData =
+            getSelectedPairingConfig(previouslySelectedChoice.name)
+                ?.factoryData || '';
+        if (factoryData) {
+            generateQRCode(factoryData).then(setQrCodePath);
+            generateManualCode(factoryData);
+        }
+    }, [previouslySelectedChoice.name]);
 
     return (
         <Main>
             <Main.Content
-                heading={`Pair your ${previouslySelectedChoice.name} device with the ${ecosystem?.name}`}
+                heading={`Pair your ${previouslySelectedChoice.name} device with the ${ecosystem.name}`}
             >
-                <div style={{ fontSize: '1.2em' }}>
-                    Open the {ecosystem?.name} app and scan the QR code.
+                <div className="pairing-description">
+                    Open the <b>{ecosystem?.name}</b> app, tap <b>+</b> button,
+                    and scan the QR code or enter the pairing pin code.
                 </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        marginTop: 24,
-                        gap: 32,
-                    }}
-                >
+                <div className="pairing-content-container">
                     <img
-                        src={phoneImg}
+                        src={path.resolve(__dirname, ecosystem.pairingImage)}
                         alt="Phone adding Matter accessory"
-                        style={{ width: 400 }}
+                        className="pairing-phone-image"
                     />
-                    <img
-                        src={qrCodeImg}
-                        alt="QR Code"
-                        style={{ maxWidth: 400 }}
+                    {qrCodePath ? (
+                        <div className="pairing-qr-container">
+                            <img
+                                src={`file://${qrCodePath}`}
+                                alt="QR Code for Matter device commissioning"
+                                className="pairing-qr-image"
+                            />
+                            {manualCode ? (
+                                <div className="pairing-manual-code">
+                                    <span className="pairing-manual-code-label">
+                                        Pairing PIN code:
+                                    </span>
+                                    <span className="pairing-manual-code-value">
+                                        {manualCode}
+                                    </span>
+                                </div>
+                            ) : (
+                                <div className="pairing-manual-code-error">
+                                    Manual code cannot be read. Please try
+                                    again.
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="pairing-qr-error-placeholder">
+                            QR Code cannot be read. Please try again.
+                        </div>
+                    )}
+                </div>
+                <hr
+                    style={{
+                        margin: '32px 0',
+                        border: 'none',
+                        borderTop: '1px solid #e0e0e0',
+                    }}
+                />
+                <div>
+                    For more information, see the {ecosystem.name}{' '}
+                    <Link
+                        label="manual pairing guide"
+                        href={ecosystem.pairingManual}
+                        color="hover:tw-text-gray-700"
                     />
+                    .
                 </div>
             </Main.Content>
             <Main.Footer>

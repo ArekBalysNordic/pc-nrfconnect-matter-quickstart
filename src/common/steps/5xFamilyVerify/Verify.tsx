@@ -15,7 +15,7 @@ import {
 } from '../../../features/device/deviceSlice';
 import { Back } from '../../Back';
 import Main from '../../Main';
-import { Next, Skip } from '../../Next';
+import { Next } from '../../Next';
 import runVerification from './serialport';
 import { getError, getResponse, reset, setError } from './verifySlice';
 
@@ -115,7 +115,6 @@ export default ({ vComIndex, regex }: { vComIndex: number; regex: RegExp }) => {
             </Main.Content>
             <Main.Footer>
                 <Back disabled={waiting} />
-                {error && <Skip />}
                 {error ? (
                     <Next label="Retry" onClick={() => dispatch(reset())} />
                 ) : (

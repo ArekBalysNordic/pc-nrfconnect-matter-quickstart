@@ -10,10 +10,10 @@ import React from 'react';
 import phoneImg from '../../../resources/phone.png';
 import { useAppSelector } from '../../app/store';
 import { getChoiceUnsafely } from '../../features/device/deviceSlice';
+import { getSelectedEcosystem } from '../../features/flows/ecosystemConfig';
 import { Back } from '../Back';
 import Main from '../Main';
 import { Next } from '../Next';
-import { getSelectedEcosystem } from './SelectEcosystem';
 
 interface InteractionProps {
     name: string;

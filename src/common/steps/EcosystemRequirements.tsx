@@ -9,10 +9,10 @@ import React from 'react';
 // TODO: Make these images part of the ecosystem data structure and replace with ecosystem specific images
 import phoneImg from '../../../resources/phone.png';
 import hubImg from '../../../resources/smart_speaker_mini.png';
+import { getSelectedEcosystem } from '../../features/flows/ecosystemConfig';
 import { Back } from '../Back';
 import Main from '../Main';
 import { Next } from '../Next';
-import { getSelectedEcosystem } from './SelectEcosystem';
 
 const EcosystemRequirementsStep = () => {
     const ecosystem = getSelectedEcosystem();

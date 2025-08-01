@@ -52,6 +52,11 @@
     },
     "prettier": "@nordicsemiconductor/pc-nrfconnect-shared/config/prettier.config.js",
     "devDependencies": {
-        "@nordicsemiconductor/pc-nrfconnect-shared": "^210.0.0"
+        "@nordicsemiconductor/pc-nrfconnect-shared": "^210.0.0",
+        "@types/qrcode": "^1.5.5"
+    },
+    "dependencies": {
+        "qrcode": "^1.5.3",
+        "cbor": "^10.0.10"
     }
 }

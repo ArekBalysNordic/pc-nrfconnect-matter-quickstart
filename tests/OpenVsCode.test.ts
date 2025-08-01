@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: LicenseRef-Nordic-4-Clause
  */
 
-import { queryParamsString } from './OpenVsCode';
+import { queryParamsString } from '../src/common/steps/develop/OpenVsCode';
 
 describe('queryParamsString', () => {
     it('converts all parameters to a query string', () => {

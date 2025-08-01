@@ -4,12 +4,11 @@
  * SPDX-License-Identifier: LicenseRef-Nordic-4-Clause
  */
 
-// import path from 'path';
-
 import Verify from '../../../common/steps/5xFamilyVerify';
 import Apps from '../../../common/steps/Apps';
 import Develop from '../../../common/steps/develop';
 import EcosystemRequirements from '../../../common/steps/EcosystemRequirements';
+import EnableAdvertising from '../../../common/steps/EnableAdvertising';
 import Info from '../../../common/steps/Info';
 import Interaction from '../../../common/steps/Interaction';
 import Learn from '../../../common/steps/Learn';
@@ -93,50 +92,6 @@ const verifyConfig = [
     },
 ];
 
-const ecosystemsConfig = [
-    {
-        name: 'Apple Home',
-        description: 'Work with Apple Home',
-        link: 'https://www.apple.com/home-app/',
-    },
-    {
-        name: 'Google Home',
-        description: 'Work with Google Home',
-        link: 'https://home.google.com/welcome/',
-    },
-    {
-        name: 'Amazon Alexa',
-        description: 'Work with Amazon Alexa',
-        link: 'https://www.amazon.com/Alexa-App/b?ie=UTF8&node=18354642011',
-    },
-    {
-        name: 'SmartThings',
-        description: 'Work with SmartThings',
-        link: 'https://www.samsung.com/uk/smartthings/app/',
-    },
-];
-
-// TODO: Uncomment when pairing section is implemented
-// const lockFactoryDataImagePath = path.resolve(
-//     __dirname,
-//     '../../../resources/devices/images/lock_factory_data.png'
-// );
-// const lightBulbFactoryDataImagePath = path.resolve(
-//     __dirname,
-//     '../../../resources/devices/images/light_bulb_factory_data.png'
-// );
-
-// const pairingConfig = [
-//     {
-//         name: 'Matter Door Lock',
-//         qrCodePng: lockFactoryDataImagePath,
-//     },
-//     {
-//         name: 'Matter Light Bulb',
-//         qrCodePng: lightBulbFactoryDataImagePath,
-//     },
-// ];
-
 const interactConfig = [
     {
         name: 'Matter Door Lock',
@@ -197,6 +152,8 @@ const appsConfig = [
     'pc-nrfconnect-dtm',
 ];
 
+const pairingImage = '../resources/devices/images/5340DK_pairing.png';
+
 export default {
     device: 'nRF5340 DK',
     flow: [
@@ -204,8 +161,9 @@ export default {
         Rename(),
         Program(programConfig),
         Verify(verifyConfig),
-        SelectEcosystem(ecosystemsConfig),
+        SelectEcosystem(),
         EcosystemRequirements(),
+        EnableAdvertising(pairingImage),
         Pairing(),
         Interaction(interactConfig),
         Learn(learnConfig),

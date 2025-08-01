@@ -4,36 +4,22 @@
  * SPDX-License-Identifier: LicenseRef-Nordic-4-Clause
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { logger } from '@nordicsemiconductor/pc-nrfconnect-shared';
 
+import {
+    EcosystemConfig,
+    ecosystemConfig,
+    setSelectedEcosystem,
+} from '../../features/flows/ecosystemConfig';
 import { Back } from '../Back';
 import { RadioSelect } from '../listSelect/RadioSelect';
 import Main from '../Main';
 import { Next } from '../Next';
 
-interface EcosystemProps {
-    name: string;
-    description: string;
-    link: string;
-}
-
-interface SelectEcosystemStepProps {
-    ecosystems: EcosystemProps[];
-}
-
-let selectedEcosystem: EcosystemProps | undefined;
-
-export const setSelectedEcosystem = (ecosystem: EcosystemProps | undefined) => {
-    selectedEcosystem = ecosystem;
-};
-
-export const getSelectedEcosystem = () => selectedEcosystem;
-
-const SelectEcosystemStep = ({ ecosystems }: SelectEcosystemStepProps) => {
-    const previouslySelectedChoice = undefined;
-    const [selected, setSelected] = React.useState<EcosystemProps | undefined>(
-        previouslySelectedChoice
+const SelectEcosystemStep = () => {
+    const [selected, setSelected] = useState<EcosystemConfig | undefined>(
+        undefined
     );
 
     const isSelected = (name: string) => {
@@ -48,7 +34,7 @@ const SelectEcosystemStep = ({ ecosystems }: SelectEcosystemStepProps) => {
         <Main>
             <Main.Content heading="Select an ecosystem you want to work with">
                 <RadioSelect
-                    items={ecosystems.map(ecosystem => ({
+                    items={ecosystemConfig.map(ecosystem => ({
                         id: ecosystem.name,
                         selected: isSelected(ecosystem.name),
                         onClick: () => {},
@@ -59,7 +45,7 @@ const SelectEcosystemStep = ({ ecosystems }: SelectEcosystemStepProps) => {
                         ),
                     }))}
                     onSelect={item => {
-                        const found = ecosystems.find(
+                        const found = ecosystemConfig.find(
                             ecosystem => ecosystem.name === item.id
                         );
                         if (found) {
@@ -74,8 +60,7 @@ const SelectEcosystemStep = ({ ecosystems }: SelectEcosystemStepProps) => {
                     disabled={!selected}
                     onClick={next => {
                         if (!selected) return;
-
-                        // dispatch(setChoice(selected));
+                        setSelected(selected);
                         setSelectedEcosystem(selected);
                         next();
                     }}
@@ -85,7 +70,7 @@ const SelectEcosystemStep = ({ ecosystems }: SelectEcosystemStepProps) => {
     );
 };
 
-export default (ecosystems: EcosystemProps[]) => ({
+export default () => ({
     name: 'Select Ecosystem',
-    component: () => SelectEcosystemStep({ ecosystems }),
+    component: () => SelectEcosystemStep(),
 });
