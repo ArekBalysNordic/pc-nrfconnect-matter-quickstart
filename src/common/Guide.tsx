@@ -30,7 +30,7 @@ const Guide = ({
         {/* steps + video container */}
         <div className="tw-flex tw-flex-row tw-items-start tw-gap-8">
             {/* steps + notes container */}
-            <div className="tw-flex tw-w-[680px] tw-shrink-0 tw-flex-col tw-gap-8">
+            <div className="tw-flex tw-w-[690px] tw-shrink-0 tw-flex-col tw-gap-8">
                 {/* steps container */}
                 <div className="tw-flex tw-flex-col tw-gap-1">
                     {steps.map((step, index) => (

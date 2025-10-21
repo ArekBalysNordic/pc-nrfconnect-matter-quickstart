@@ -66,7 +66,7 @@ const Video = ({ mediaSrc }: VideoProps) => {
             )}
 
             {/* video container with double-click and custom maximize button */}
-            <div className="tw-relative tw-flex tw-min-w-0 tw-flex-1">
+            <div className="tw-relative tw-mr-[15px] tw-flex tw-min-w-0 tw-flex-1">
                 <video
                     src={mediaSrc}
                     className="tw-rounded-lg tw-object-contain tw-shadow-lg"
