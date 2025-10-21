@@ -35,7 +35,6 @@ const InteractionStep = ({
         <Main>
             <Main.Content
                 heading={`Interact with your ${previouslySelectedChoice.name} device using the ${ecosystem?.name} app`}
-                subHeading={`Follow the instructions below to interact with your ${previouslySelectedChoice.name} device using the ${ecosystem?.name} app:`}
             >
                 <Guide
                     steps={controllingGuide?.guide || []}

@@ -19,8 +19,6 @@ const EcosystemRequirementsStep = () => {
         <Main>
             <Main.Content
                 heading={`Complete the requirements for the ${ecosystem?.name}`}
-                subHeading="You are going to need the following devices and tools to use
-                    this ecosystem:"
             >
                 <Requirement
                     content={[

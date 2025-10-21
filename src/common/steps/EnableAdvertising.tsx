@@ -38,10 +38,7 @@ const EnableAdvertisingStep = (advertisingData: AdvertisingData) => {
         <Main>
             {pairingConfig?.autoAdvertise ? null : (
                 <>
-                    <Main.Content
-                        heading="Enable Bluetooth Low Energy advertising"
-                        subHeading="Follow the instructions below to enable Bluetooth Low Energy advertising:"
-                    >
+                    <Main.Content heading="Enable Bluetooth Low Energy advertising">
                         <div>
                             {(() => {
                                 const { button, enablePairingImage } =
