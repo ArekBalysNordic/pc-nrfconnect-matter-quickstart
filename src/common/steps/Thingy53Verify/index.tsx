@@ -122,9 +122,9 @@ const VerifyStep = ({
                     {commands.map(({ title, copiable = false }, index) => (
                         <div key={title}>
                             <p>
-                                <i className="tw-font-light">{title}</i>
+                                <i>{title}</i>
                             </p>
-                            <div className="tw-flex tw-flex-row tw-items-center tw-gap-4">
+                            <div className="tw-flex tw-flex-row tw-items-center tw-gap-4 tw-text-gray-700">
                                 <p className={verifying ? 'ellipsis' : ''}>
                                     {!verifying && (
                                         <b>

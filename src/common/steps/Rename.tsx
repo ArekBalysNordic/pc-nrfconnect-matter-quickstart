@@ -40,7 +40,7 @@ const RenameStep = () => {
                         className="tw-h-8 tw-w-full tw-border tw-border-solid tw-border-gray-300 tw-px-2 tw-py-4 focus:tw-outline-0"
                     />
                 </div>
-                <p className="tw-pt-12">
+                <p className="tw-pt-12 tw-text-gray-700">
                     The application will remember and display the custom name
                     when you use other apps. You can always change the name
                     later. Click <b>Skip</b> if you prefer to keep the default

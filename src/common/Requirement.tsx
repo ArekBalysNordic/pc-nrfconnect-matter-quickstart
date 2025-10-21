@@ -40,7 +40,7 @@ const Requirement = ({ content }: RequirementProps) => (
                     <div className="tw-flex tw-flex-1 tw-flex-col tw-gap-8">
                         {/* Media text */}
                         <ReactMarkdown
-                            className="tw-text-center tw-font-medium"
+                            className="tw-text-center"
                             components={{
                                 a: overWriteA,
                                 em: overwriteEm,
@@ -71,7 +71,7 @@ const Requirement = ({ content }: RequirementProps) => (
                     {/* Media description */}
                     <div className="tw-flex tw-flex-1 tw-flex-col tw-gap-2">
                         <ReactMarkdown
-                            className="tw-align-text-top tw-font-light"
+                            className="tw-align-text-top"
                             components={{
                                 a: overWriteA,
                                 em: overwriteEm,
@@ -83,7 +83,7 @@ const Requirement = ({ content }: RequirementProps) => (
                         {/* Media visit note */}
                         {media.visit_note && (
                             <ReactMarkdown
-                                className="tw-align-text-top tw-font-light"
+                                className="tw-align-text-top"
                                 components={{
                                     a: overWriteA,
                                     em: overwriteEm,

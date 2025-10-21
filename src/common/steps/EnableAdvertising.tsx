@@ -48,7 +48,7 @@ const EnableAdvertisingStep = (advertisingData: AdvertisingData) => {
                                     advertisingData;
                                 return (
                                     <div className="tw-flex tw-flex-col tw-gap-8">
-                                        <div className="tw-font-light">
+                                        <div>
                                             Press <b>{button}</b> on the
                                             development kit to enable Bluetooth
                                             Low Energy advertising (see the

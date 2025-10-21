@@ -22,7 +22,6 @@ const EcosystemSetupStep = () => {
                 subHeading={`Follow the instructions below to setup ${ecosystem?.hubName} for the ${ecosystem?.name} ecosystem:`}
             >
                 <Guide
-                    ecosystem={ecosystem}
                     steps={ecosystem?.setupManual}
                     mediaSrc={ecosystem?.setupVideo}
                 />

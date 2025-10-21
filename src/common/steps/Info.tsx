@@ -37,13 +37,17 @@ const InfoStep = ({
                     alt="DK"
                     className="tw-mx-auto tw-block tw-max-h-[200px] tw-max-w-md"
                 />
-                <ReactMarkdown>{SoCDescription}</ReactMarkdown>
+                <ReactMarkdown className="tw-text-gray-700">
+                    {SoCDescription}
+                </ReactMarkdown>
                 <img
                     src={dkTechnologiesImage}
                     alt="DK Technologies"
                     className="tw-mx-auto tw-block tw-max-w-md"
                 />
-                <ReactMarkdown>{additionalInformation}</ReactMarkdown>
+                <ReactMarkdown className="tw-text-gray-700">
+                    {additionalInformation}
+                </ReactMarkdown>
                 <ReactMarkdown
                     components={{
                         a: overWriteA,
