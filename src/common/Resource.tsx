@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react';
 import {
     apps,
     Button,
-    classNames,
     openWindow,
     telemetry,
 } from '@nordicsemiconductor/pc-nrfconnect-shared';
@@ -37,25 +36,12 @@ export interface ResourcesWithdDownloadAndGuide {
 }
 
 export const Resource = ({ label, description, link }: ResourceProps) => (
-    <div
-        className={classNames(
-            'tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-gap-px tw-bg-gray-50 tw-p-4 tw-text-gray-700 hover:tw-bg-gray-100'
-        )}
-    >
-        <div className="tw-flex tw-flex-1 tw-flex-row tw-items-start tw-justify-start">
-            <div className="tw-w-64 tw-flex-shrink-0 tw-pr-5">
-                <b>{label}</b>
-            </div>
-            <div className="tw-flex tw-max-w-[650px] tw-flex-col">
-                {description}
-                <div className="tw-pt-0.5 tw-text-xs">
-                    <Link
-                        label={link.label}
-                        href={link.href}
-                        color="tw-text-primary"
-                    />
-                </div>
-            </div>
+    <div>
+        <b>{label}</b>
+        <br />
+        {description}
+        <div className="tw-pt-0.5 tw-text-xs">
+            <Link label={link.label} href={link.href} color="tw-text-primary" />
         </div>
     </div>
 );
@@ -73,39 +59,28 @@ export const ResourceWithDownloadAndGuide = ({
         }
     };
     return (
-        <div
-            className={classNames(
-                'tw-flex tw-w-full tw-flex-row tw-items-center tw-justify-between tw-gap-px tw-bg-gray-50 tw-p-4 tw-text-gray-700 hover:tw-bg-gray-100'
-            )}
-        >
-            <div className="tw-flex tw-flex-1 tw-flex-row tw-items-start tw-justify-start">
-                <div className="tw-w-64 tw-flex-shrink-0 tw-pr-5">
+        <div className="tw-flex tw-flex-row tw-items-center tw-justify-between tw-gap-10">
+            <div className="tw-w-[600px]">
+                <div>
                     <b>{label}</b>
                 </div>
-                <div className="tw-flex tw-max-w-[650px] tw-flex-col">
-                    {description}
-                    <div className="tw-pt-0.5 tw-text-xs">
-                        See the{' '}
-                        <Link
-                            label={guideLink.label}
-                            href={guideLink.href}
-                            color="tw-text-primary"
-                        />
-                    </div>
+                {description}
+                <div className="tw-pt-0.5 tw-text-xs">
+                    <Link
+                        label={guideLink.label}
+                        href={guideLink.href}
+                        color="tw-text-primary"
+                    />
                 </div>
             </div>
-            <div className="tw-ml-4 tw-flex tw-items-center">
-                {downloadLink && (
-                    <Button
-                        variant="link-button"
-                        size="xl"
-                        onClick={onClickDownload}
-                        className="tw-shrink-0"
-                    >
-                        {buttonLabel}
-                    </Button>
-                )}
-            </div>
+            <Button
+                variant="link-button"
+                size="xl"
+                onClick={onClickDownload}
+                className="tw-w-[250px] tw-shrink-0"
+            >
+                {buttonLabel}
+            </Button>
         </div>
     );
 };

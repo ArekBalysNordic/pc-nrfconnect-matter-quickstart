@@ -14,7 +14,7 @@ import { Resource, ResourceProps } from '../Resource';
 const LearnStep = ({ resources }: { resources: ResourceProps[] }) => (
     <Main>
         <Main.Content heading="Recommended learning resources">
-            <div className="tw-flex tw-flex-col tw-items-start tw-justify-start tw-gap-0.5">
+            <div className="tw-flex tw-flex-col tw-items-start tw-justify-start tw-gap-8">
                 {resources.map(props => (
                     <Resource {...props} key={props.label} />
                 ))}
