@@ -6,36 +6,52 @@
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import path from 'path';
 
-import { getImageFolder } from '../../features/device/deviceGuides';
 import { Back } from '../Back';
 import Main from '../Main';
-import { overWriteA, overwriteEm, overwriteInfoImg } from '../Markdown';
+import { overWriteA } from '../Markdown';
 import { Next } from '../Next';
 
 interface Props {
     title: string;
-    markdownContent: string;
+    dkImage: string;
+    dkTechnologiesImage: string;
+    SoCDescription: string;
+    additionalInformation: string;
+    documentationLink: string;
 }
 
-const InfoStep = ({ title, markdownContent }: Props) => (
+const InfoStep = ({
+    title,
+    dkImage,
+    dkTechnologiesImage,
+    SoCDescription,
+    additionalInformation,
+    documentationLink,
+}: Props) => (
     <Main>
         <Main.Content heading={title}>
-            <ReactMarkdown
-                components={{
-                    a: overWriteA,
-                    em: overwriteEm,
-                    img: overwriteInfoImg,
-                }}
-                transformImageUri={src =>
-                    src.startsWith('http')
-                        ? src
-                        : path.join(getImageFolder(), src)
-                }
-            >
-                {markdownContent}
-            </ReactMarkdown>
+            <div className="tw-flex tw-flex-col tw-gap-6">
+                <img
+                    src={dkImage}
+                    alt="DK"
+                    className="tw-mx-auto tw-block tw-max-h-[200px] tw-max-w-md"
+                />
+                <ReactMarkdown>{SoCDescription}</ReactMarkdown>
+                <img
+                    src={dkTechnologiesImage}
+                    alt="DK Technologies"
+                    className="tw-mx-auto tw-block tw-max-w-md"
+                />
+                <ReactMarkdown>{additionalInformation}</ReactMarkdown>
+                <ReactMarkdown
+                    components={{
+                        a: overWriteA,
+                    }}
+                >
+                    {`Learn more on the [documentation](${documentationLink}) page.`}
+                </ReactMarkdown>
+            </div>
         </Main.Content>
         <Main.Footer>
             <Back />

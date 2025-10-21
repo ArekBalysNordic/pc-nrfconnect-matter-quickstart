@@ -30,8 +30,14 @@ import { AdvertisingData } from '../pairingConfig';
 
 const infoConfig = {
     title: 'Multi-protocol IoT prototyping platform',
-    markdownContent:
-        '![Thingy53](Thingy53.png)  \n&nbsp;  \nThe Nordic Thingy:53™ is an easy-to-use IoT prototyping platform. The Thingy:53 is built around the nRF5340 SoC, our flagship dual-core wireless SoC. The Bluetooth Low Energy (LE) radio allows updating firmware and communication over Bluetooth LE, and the radio also supports other protocols like Bluetooth mesh, Thread, Zigbee, and proprietary 2.4 GHz protocols. The Thread protocol compatibility also makes it a great choice when developing products for the new Matter ecosystem.\n&nbsp;  \n[Hardware documentation](https://docs.nordicsemi.com/bundle/ug_thingy53/page/UG/thingy53/intro/frontpage.html)',
+    dkImage: '../resources/devices/images/Thingy53.png',
+    dkTechnologiesImage: '../resources/devices/images/DKTech.png',
+    SoCDescription:
+        'The Nordic Thingy:53™ is an easy-to-use IoT prototyping platform. The Thingy:53 is built around the nRF5340 SoC, our flagship dual-core wireless SoC. The Bluetooth Low Energy (LE) radio allows updating firmware and communication over Bluetooth LE, and the radio also supports other protocols like Bluetooth mesh, Thread, Zigbee, and proprietary 2.4 GHz protocols. The Thread protocol compatibility also makes it a great choice when developing products for the new Matter ecosystem.',
+    additionalInformation:
+        'The Thread protocol compatibility also makes it a great choice when developing products for the new Matter ecosystem.',
+    documentationLink:
+        'https://docs.nordicsemi.com/bundle/ug_thingy53/page/UG/thingy53/intro/frontpage.html',
 };
 
 const programConfig = [

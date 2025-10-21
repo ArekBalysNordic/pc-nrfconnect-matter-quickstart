@@ -28,8 +28,14 @@ import { AdvertisingData } from '../pairingConfig';
 
 const infoConfig = {
     title: 'Versatile single-board development kit',
-    markdownContent:
-        '![nRF52840 DK](52840DK.png)  \n&nbsp;  \nThe nRF52840 DK is a versatile single-board development kit for Bluetooth Low Energy, Bluetooth Mesh, Matter, Thread, Zigbee, 802.15.4, ANT and 2.4 GHz proprietary applications on the nRF52840 SoC. It is the recommended Nordic development kit for Amazon Sidewalk. It also supports development on the nRF52811 SoC.  \n&nbsp;  \n&nbsp;  \n![Technologies](52840DKTech.png)  \n&nbsp;  \nThe nRF52840 DK can be used for Matter over Thread where Thread is used for transport and Bluetooth LE for commissioning. Matter devices based on Thread are required to feature Bluetooth LE concurrently to enable adding new devices to a network.  \n&nbsp;  \n[Hardware documentation](https://docs.nordicsemi.com/bundle/ug_nrf52840_dk/page/UG/dk/intro.html)',
+    dkImage: '../resources/devices/images/52840DK.png',
+    dkTechnologiesImage: '../resources/devices/images/DKTech.png',
+    SoCDescription:
+        'The nRF52840 DK is a versatile single-board development kit for Bluetooth Low Energy, Bluetooth Mesh, Matter, Thread, Zigbee, 802.15.4, ANT and 2.4 GHz proprietary applications on the nRF52840 SoC. It is the recommended Nordic development kit for Amazon Sidewalk. It also supports development on the nRF52811 SoC.',
+    additionalInformation:
+        'The nRF52840 DK can be used for Matter over Thread where Thread is used for transport and Bluetooth LE for commissioning. Matter devices based on Thread are required to feature Bluetooth LE concurrently to enable adding new devices to a network.',
+    documentationLink:
+        'https://docs.nordicsemi.com/bundle/ug_nrf52840_dk/page/UG/dk/intro.html',
 };
 
 const programConfig = [

@@ -28,8 +28,14 @@ import { AdvertisingData } from '../pairingConfig';
 
 const infoConfig = {
     title: 'Dual-core Bluetooth 5.4 SoC',
-    markdownContent:
-        '![nRF5340 DK](5340DK.png)  \n&nbsp;  \nThe nRF5340 DK supports development with an extensive range of wireless protocols. It supports Bluetooth® Low Energy with features such as high-throughput 2 Mbps, Advertising Extensions, and Long Range. Mesh protocols (like Bluetooth Mesh, Thread, and Zigbee) can run concurrently with Bluetooth Low Energy, enabling smartphones to provision, commission, configure, and control mesh nodes, which is a prerequisite for [Matter](https://www.nordicsemi.com/Products/Technologies/Matter) applications. The DK also supports NFC, ANT, 802.15.4, and 2.4-GHz proprietary protocols.  \n&nbsp;  \n&nbsp;  \n![nRF5340 DK Technologies](5340DKTech.png)  \n&nbsp;  \nThe nRF5340 DK is bundled with an NFC antenna that quickly enables testing of nRF5340’s NFC-A tag functionality. The board comes with the SEGGER J-Link debugger, enabling full-blown programming and debugging of both the nRF5340 SoC and external targets.  \n&nbsp;  \n[Hardware documentation](https://docs.nordicsemi.com/bundle/ug_nrf5340_dk/page/UG/dk/intro.html)',
+    dkImage: '../resources/devices/images/5340DK.png',
+    dkTechnologiesImage: '../resources/devices/images/DKTech.png',
+    SoCDescription:
+        'The nRF5340 DK supports development with an extensive range of wireless protocols. It supports Bluetooth® Low Energy with features such as high-throughput 2 Mbps, Advertising Extensions, and Long Range. Mesh protocols (like Bluetooth Mesh, Thread, and Zigbee) can run concurrently with Bluetooth Low Energy, enabling smartphones to provision, commission, configure, and control mesh nodes, which is a prerequisite for [Matter](https://www.nordicsemi.com/Products/Technologies/Matter) applications. The DK also supports NFC, ANT, 802.15.4, and 2.4-GHz proprietary protocols.',
+    additionalInformation:
+        'The nRF5340 DK is bundled with an NFC antenna that quickly enables testing of nRF5340’s NFC-A tag functionality. The board comes with the SEGGER J-Link debugger, enabling full-blown programming and debugging of both the nRF5340 SoC and external targets.',
+    documentationLink:
+        'https://docs.nordicsemi.com/bundle/ug_nrf5340_dk/page/UG/dk/intro.html',
 };
 
 const programConfig = [

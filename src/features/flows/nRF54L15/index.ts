@@ -28,8 +28,14 @@ import { AdvertisingData } from '../pairingConfig';
 
 const infoConfig = {
     title: 'Next-level multiprotocol SoC',
-    markdownContent:
-        '![nRF54L15 DK](54L15DK.png)  \n&nbsp;  \nnRF54L15 is the first System-on-Chip (SoC) in the nRF54L Series. It is an ultra-low power Bluetooth 6.0 SoC with a new best-in-class multiprotocol radio and advanced security features.  \n&nbsp; \n&nbsp; \n&nbsp; ![54L15 DK Technologies](54LSeriesDKTech.png) \n&nbsp;  \nThe nRF54L Series takes the popular nRF52 Series to the next level with excellent processing power and efficiency, expanded memory, and new peripherals, all in a more compact package. \n&nbsp;  \n[Hardware documentation](https://docs.nordicsemi.com/bundle/ps_nrf54L15/page/keyfeatures_html5.html)',
+    dkImage: '../resources/devices/images/54L15DK.png',
+    dkTechnologiesImage: '../resources/devices/images/DKTech.png',
+    SoCDescription:
+        'nRF54L15 is the first System-on-Chip (SoC) in the nRF54L Series. It is an ultra-low power Bluetooth 6.0 SoC with a new best-in-class multiprotocol radio and advanced security features.',
+    additionalInformation:
+        'The nRF54L Series takes the popular nRF52 Series to the next level with excellent processing power and efficiency, expanded memory, and new peripherals, all in a more compact package.',
+    documentationLink:
+        'https://docs.nordicsemi.com/bundle/ps_nrf54L15/page/keyfeatures_html5.html',
 };
 
 const programConfig = [

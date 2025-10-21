@@ -28,8 +28,14 @@ import { AdvertisingData } from '../pairingConfig';
 
 const infoConfig = {
     title: 'nRF54L Series – nRF54LM20 DK',
-    markdownContent:
-        '![nRF54LM20 DK](54LM20DK.png)  \n&nbsp;  \nThe nRF54LM20 DK enables development with nRF54LM20A SoC.  \n&nbsp;  \nnRF54LM20A is part of the nRF54L Series. All wireless System-on-Chip (SoC) options in the series integrate an ultra-low-power, multiprotocol 2.4-GHz radio and MCU functionality featuring a 128-MHz Arm Cortex-M33 processor. The nRF54LM20A features an extended peripheral set, high-speed USB, increased memory size with 2036 KB NVM and 512 KB RAM, and up to 66 GPIOs.  \n&nbsp;  \n![54L20 DK Technologies](54LSeriesDKTech.png)  \nThe multiprotocol 2.4-GHz radio of nRF54LM20A supports Bluetooth® LE with optional features, including Channel Sounding introduced in Bluetooth Core 6.0, as well as 802.15.4-2020 for standards such as Thread, Matter, and Zigbee. It also supports a proprietary 2.4-GHz mode with up to 4 Mbps for higher throughput.  \n&nbsp;  \nFor more information, read the [datasheet](https://docs.nordicsemi.com/bundle/ps_nrf54LM20A/page/keyfeatures_html5.html) and visit the [nRF54LM20A SoC](https://www.nordicsemi.com/Products/nRF54LM20A) and the [nRF54LM20 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF54LM20-DK) web pages.',
+    dkImage: '../resources/devices/images/54LM20DK.png',
+    dkTechnologiesImage: '../resources/devices/images/DKTech.png',
+    SoCDescription:
+        'nRF54LM20A is part of the nRF54L Series. All wireless System-on-Chip (SoC) options in the series integrate an ultra-low-power, multiprotocol 2.4-GHz radio and MCU functionality featuring a 128-MHz Arm Cortex-M33 processor. The nRF54LM20A features an extended peripheral set, high-speed USB, increased memory size with 2036 KB NVM and 512 KB RAM, and up to 66 GPIOs.',
+    additionalInformation:
+        'The multiprotocol 2.4-GHz radio of nRF54LM20A supports Bluetooth® LE with optional features, including Channel Sounding introduced in Bluetooth Core 6.0, as well as 802.15.4-2020 for standards such as Thread, Matter, and Zigbee. It also supports a proprietary 2.4-GHz mode with up to 4 Mbps for higher throughput. For more information, read the [datasheet](https://docs.nordicsemi.com/bundle/ps_nrf54LM20A/page/keyfeatures_html5.html) and visit the [nRF54LM20A SoC](https://www.nordicsemi.com/Products/nRF54LM20A) and the [nRF54LM20 DK](https://www.nordicsemi.com/Products/Development-hardware/nRF54LM20-DK) web pages.',
+    documentationLink:
+        'https://docs.nordicsemi.com/bundle/ps_nrf54LM20A/page/keyfeatures_html5.html',
 };
 
 const programConfig = [
