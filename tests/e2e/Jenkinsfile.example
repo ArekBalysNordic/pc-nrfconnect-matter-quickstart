@@ -1,0 +1,208 @@
+/*
+ * Example Jenkins Pipeline for Matter Quick Start E2E Tests
+ * 
+ * This pipeline demonstrates how to run E2E tests with real hardware
+ * on both Windows and Linux Jenkins agents.
+ * 
+ * Prerequisites:
+ * - Jenkins agents labeled 'windows-hardware' and 'linux-hardware'
+ * - Development kits connected to agents via USB
+ * - nRF Connect for Desktop installed on agents
+ * - Node.js installed on agents
+ * - USB permissions configured (Linux)
+ * 
+ * Copy this file to your Jenkins pipeline configuration or repository root
+ * and adjust as needed for your environment.
+ */
+
+pipeline {
+    agent none
+    
+    options {
+        // Keep builds for 30 days
+        buildDiscarder(logRotator(daysToKeepStr: '30'))
+        
+        // Timeout after 30 minutes
+        timeout(time: 30, unit: 'MINUTES')
+        
+        // No concurrent builds
+        disableConcurrentBuilds()
+    }
+    
+    stages {
+        stage('Parallel E2E Tests') {
+            parallel {
+                stage('Windows E2E Tests') {
+                    agent {
+                        label 'windows-hardware'
+                    }
+                    
+                    environment {
+                        // Adjust path to your nRF Connect for Desktop installation
+                        NRFCONNECT_APP_PATH = 'C:\\Users\\jenkins\\AppData\\Local\\Programs\\nrfconnect\\nRF Connect for Desktop.exe'
+                    }
+                    
+                    steps {
+                        script {
+                            echo 'Running E2E tests on Windows with real hardware...'
+                            
+                            // Clean workspace
+                            cleanWs()
+                            
+                            // Checkout code
+                            checkout scm
+                            
+                            // Install dependencies
+                            bat 'npm install'
+                            
+                            // Install Playwright browsers
+                            bat 'npx playwright install'
+                            
+                            // Run E2E tests
+                            bat 'npm run test:e2e:ci'
+                        }
+                    }
+                    
+                    post {
+                        always {
+                            // Archive test artifacts
+                            archiveArtifacts artifacts: 'test-results/**/*', allowEmptyArchive: true
+                            archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
+                            
+                            // Publish JUnit test results
+                            junit testResults: 'test-results/junit.xml', allowEmptyResults: true
+                            
+                            // Publish HTML report
+                            publishHTML([
+                                reportDir: 'playwright-report',
+                                reportFiles: 'index.html',
+                                reportName: 'Windows E2E Test Report',
+                                keepAll: true,
+                                alwaysLinkToLastBuild: true
+                            ])
+                        }
+                    }
+                }
+                
+                stage('Linux E2E Tests') {
+                    agent {
+                        label 'linux-hardware'
+                    }
+                    
+                    environment {
+                        // Adjust path to your nRF Connect for Desktop installation
+                        NRFCONNECT_APP_PATH = '/opt/nrfconnect/nrfconnect'
+                        
+                        // Display for X11
+                        DISPLAY = ':99'
+                    }
+                    
+                    steps {
+                        script {
+                            echo 'Running E2E tests on Linux with real hardware...'
+                            
+                            // Clean workspace
+                            cleanWs()
+                            
+                            // Checkout code
+                            checkout scm
+                            
+                            // Start Xvfb for headless testing
+                            sh '''
+                                # Kill any existing Xvfb on display :99
+                                pkill -f "Xvfb :99" || true
+                                
+                                # Start new Xvfb
+                                Xvfb :99 -screen 0 1280x1024x24 &
+                                XVFB_PID=$!
+                                echo $XVFB_PID > /tmp/xvfb.pid
+                                
+                                # Wait for Xvfb to start
+                                sleep 2
+                                
+                                # Verify Xvfb is running
+                                ps -p $XVFB_PID || (echo "Xvfb failed to start" && exit 1)
+                            '''
+                            
+                            // Install dependencies
+                            sh 'npm install'
+                            
+                            // Install Playwright browsers
+                            sh 'npx playwright install'
+                            
+                            // Install Playwright system dependencies
+                            sh 'npx playwright install-deps'
+                            
+                            // Run E2E tests
+                            sh 'npm run test:e2e:ci'
+                        }
+                    }
+                    
+                    post {
+                        always {
+                            // Stop Xvfb
+                            sh '''
+                                if [ -f /tmp/xvfb.pid ]; then
+                                    kill $(cat /tmp/xvfb.pid) || true
+                                    rm /tmp/xvfb.pid
+                                fi
+                                pkill -f "Xvfb :99" || true
+                            '''
+                            
+                            // Archive test artifacts
+                            archiveArtifacts artifacts: 'test-results/**/*', allowEmptyArchive: true
+                            archiveArtifacts artifacts: 'playwright-report/**/*', allowEmptyArchive: true
+                            
+                            // Publish JUnit test results
+                            junit testResults: 'test-results/junit.xml', allowEmptyResults: true
+                            
+                            // Publish HTML report
+                            publishHTML([
+                                reportDir: 'playwright-report',
+                                reportFiles: 'index.html',
+                                reportName: 'Linux E2E Test Report',
+                                keepAll: true,
+                                alwaysLinkToLastBuild: true
+                            ])
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            script {
+                // Aggregate results from both platforms
+                echo 'E2E tests completed on all platforms'
+            }
+        }
+        
+        success {
+            echo 'All E2E tests passed!'
+        }
+        
+        failure {
+            script {
+                // Send notification on failure
+                // Adjust email addresses as needed
+                emailext(
+                    subject: "E2E Tests Failed: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+                    body: """
+                    The E2E tests have failed.
+                    
+                    Job: ${env.JOB_NAME}
+                    Build: ${env.BUILD_NUMBER}
+                    URL: ${env.BUILD_URL}
+                    
+                    Please check the test reports for details.
+                    """,
+                    to: 'your-team@example.com',
+                    attachLog: true
+                )
+            }
+        }
+    }
+}
+

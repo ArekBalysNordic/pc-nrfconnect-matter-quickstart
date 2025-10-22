@@ -2,3 +2,9 @@
 /dist
 /jest.json
 /pc-nrfconnect-quickstart-*.tgz
+
+# E2E test artifacts
+/test-results
+/playwright-report
+/playwright/.cache
+*.trace.zip
