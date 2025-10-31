@@ -5,9 +5,16 @@
  */
 
 import React from 'react';
+import {
+    deviceInfo,
+    telemetry,
+} from '@nordicsemiconductor/pc-nrfconnect-shared';
 
 import { useAppSelector } from '../../app/store';
-import { getChoiceUnsafely } from '../../features/device/deviceSlice';
+import {
+    getChoiceUnsafely,
+    getSelectedDeviceUnsafely,
+} from '../../features/device/deviceSlice';
 import {
     getSelectedControllingGuide,
     HardwareParams,
@@ -25,6 +32,7 @@ const InteractionStep = ({
 }) => {
     const ecosystem = getSelectedEcosystem();
     const previouslySelectedChoice = useAppSelector(getChoiceUnsafely);
+    const device = useAppSelector(getSelectedDeviceUnsafely);
     const controllingGuide = getSelectedControllingGuide(
         previouslySelectedChoice.name,
         ecosystem.name,
@@ -46,6 +54,11 @@ const InteractionStep = ({
                 <Back />
                 <Next
                     onClick={next => {
+                        telemetry.sendEvent('Completed Matter', {
+                            deviceName: deviceInfo(device).name,
+                            sampleName: previouslySelectedChoice.name,
+                            ecosystem: ecosystem.name,
+                        });
                         next();
                     }}
                 />

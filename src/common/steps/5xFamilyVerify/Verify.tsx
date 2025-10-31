@@ -5,7 +5,11 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { IssueBox } from '@nordicsemiconductor/pc-nrfconnect-shared';
+import {
+    deviceInfo,
+    IssueBox,
+    telemetry,
+} from '@nordicsemiconductor/pc-nrfconnect-shared';
 import describeError from '@nordicsemiconductor/pc-nrfconnect-shared/src/logging/describeError';
 
 import { useAppDispatch, useAppSelector } from '../../../app/store';
@@ -167,7 +171,15 @@ export default ({
                 {error ? (
                     <Next label="Retry" onClick={() => dispatch(reset())} />
                 ) : (
-                    <Next disabled={waiting || !!error} />
+                    <Next
+                        disabled={waiting || !!error}
+                        onClick={() => {
+                            telemetry.sendEvent('Programmed sample', {
+                                sampleName: ref,
+                                deviceName: deviceInfo(device).name,
+                            });
+                        }}
+                    />
                 )}
             </Main.Footer>
         </Main>

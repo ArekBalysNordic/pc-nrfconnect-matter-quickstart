@@ -5,7 +5,7 @@
  */
 
 import React, { useState } from 'react';
-import { logger } from '@nordicsemiconductor/pc-nrfconnect-shared';
+import { logger, telemetry } from '@nordicsemiconductor/pc-nrfconnect-shared';
 
 import { useAppSelector } from '../../app/store';
 import { getChoice } from '../../features/device/deviceSlice';
@@ -75,6 +75,9 @@ const SelectEcosystemStep = () => {
                         if (!selected) return;
                         setSelected(selected);
                         setSelectedEcosystem(selected);
+                        telemetry.sendEvent('Selected ecosystem', {
+                            ecosystem: selected.name,
+                        });
                         next();
                     }}
                 />

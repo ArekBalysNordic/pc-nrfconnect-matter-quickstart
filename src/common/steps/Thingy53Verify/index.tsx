@@ -9,6 +9,7 @@ import {
     describeError,
     IssueBox,
     logger,
+    telemetry,
 } from '@nordicsemiconductor/pc-nrfconnect-shared';
 
 import { store, useAppDispatch, useAppSelector } from '../../../app/store';
@@ -168,7 +169,15 @@ const VerifyStep = ({
                         }}
                     />
                 ) : (
-                    <Next disabled={verifying} />
+                    <Next
+                        disabled={verifying}
+                        onClick={() => {
+                            telemetry.sendEvent('Programmed sample', {
+                                sampleName: 'Matter Weather Station',
+                                deviceName: 'Thingy53',
+                            });
+                        }}
+                    />
                 )}
             </Main.Footer>
         </Main>
